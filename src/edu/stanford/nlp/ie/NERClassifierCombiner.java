@@ -4,7 +4,6 @@ import java.io.*;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import edu.stanford.nlp.ie.regexp.ChineseNumberSequenceClassifier;
 import edu.stanford.nlp.ie.regexp.NumberSequenceClassifier;
 import edu.stanford.nlp.io.IOUtils;
 import edu.stanford.nlp.io.RuntimeIOException;
@@ -104,11 +103,7 @@ public class NERClassifierCombiner extends ClassifierCombiner<CoreLabel>  {
     this.nerLanguage = nerLanguage;
     this.useSUTime = useSUTime;
     // check for which language to use for number sequence classifier
-    if (nerLanguage == Language.CHINESE) {
-      this.nsc = new ChineseNumberSequenceClassifier(new Properties(), useSUTime, nscProps);
-    } else {
-      this.nsc = new NumberSequenceClassifier(new Properties(), useSUTime, nscProps);
-    }
+    this.nsc = new NumberSequenceClassifier(new Properties(), useSUTime, nscProps);
   }
 
   @SafeVarargs

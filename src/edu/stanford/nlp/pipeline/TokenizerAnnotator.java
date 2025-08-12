@@ -9,7 +9,7 @@ import edu.stanford.nlp.ling.CoreAnnotations;
 import edu.stanford.nlp.ling.CoreLabel;
 import edu.stanford.nlp.process.*;
 import edu.stanford.nlp.international.spanish.process.SpanishTokenizer;
-import edu.stanford.nlp.international.french.process.FrenchTokenizer;
+
 import edu.stanford.nlp.util.Generics;
 import edu.stanford.nlp.util.PropertiesUtils;
 import edu.stanford.nlp.util.ReflectionLoading;
@@ -39,12 +39,8 @@ public class TokenizerAnnotator implements Annotator  {
    */
   public enum TokenizerType {
     Unspecified(null, null, "invertible,ptb3Escaping=true"),
-    Arabic     ("ar", null, ""),
-    Chinese    ("zh", null, ""),
     Spanish    ("es", "SpanishTokenizer", SpanishTokenizer.DEFAULT_OPTIONS),
     English    ("en", "PTBTokenizer", "invertible"),
-    German     ("de", null, "invertible,ptb3Escaping=false,splitHyphenated=true"),
-    French     ("fr", "FrenchTokenizer", FrenchTokenizer.DEFAULT_OPTIONS),
     Whitespace (null, "WhitespaceTokenizer", "");
 
     private final String abbreviation;
@@ -304,10 +300,6 @@ public class TokenizerAnnotator implements Annotator  {
       factory = SpanishTokenizer.factory(new CoreLabelTokenFactory(), options);
       break;
 
-    case French:
-      factory = FrenchTokenizer.factory(new CoreLabelTokenFactory(), options);
-      break;
-
     case Whitespace:
       boolean eolIsSignificant = Boolean.parseBoolean(props.getProperty(EOL_PROPERTY, "false"));
       eolIsSignificant = eolIsSignificant || KEEP_NL_OPTION.equals(computeExtraOptions(props));
@@ -315,7 +307,6 @@ public class TokenizerAnnotator implements Annotator  {
       break;
 
     case English:
-    case German:
       factory = PTBTokenizer.factory(new CoreLabelTokenFactory(), options);
       break;
 
