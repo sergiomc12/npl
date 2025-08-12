@@ -1,0 +1,38 @@
+Este archivo contiene los patrones basados en Semgrex para cada tipo de ranura.
+
+Cada tipo de ranura debe contener un archivo con EXACTAMENTE el mismo nombre seguido de ".rules" que la ranura.
+Cada archivo contiene un patrón por línea.
+Cada patrón debe contener dos nodos con nombre: uno "entidad" y otro "ranura".
+
+Nota: 1) Encontrar padres es COSTOSO, así que evite las expresiones "<" siempre que sea posible.
+2) Puede encontrar descendientes hasta varios niveles usando ">>" en lugar de ">" (que solo compara los hijos inmediatos).
+
+Estos patrones fueron escritos por Mihai.
+
+Notas específicas para español: Probablemente no habrá relaciones iobj, pero en algunos casos las expresiones Semgrex de UD 1.0 permitían .obj, por lo que, para una posible compatibilidad con UD 2.0, permitimos (.)?obj).
+
+Además, la expresión compuesta nunca debería aparecer, por lo que no es necesario permitir flat|compound en lugar de permitir solo flat.
+
+
+=================================================
+
+
+This contains the semgrex-based patterns for each slot type.
+
+Each slot type must contain a file with the EXACT same name followed by ".rules" as the slot.
+Each file contains one pattern per line.
+Each pattern must contain two named nodes: one "entity" and one "slot".
+
+Note: 1) Finding parents is EXPENSIVE, so avoid the "<" expressions as much as possible!
+      2) You can find decendents upto multiple levels by using ">>" instead of ">" (which just compares the immediate children)
+
+
+These patterns were written by Mihai.
+
+
+Spanish specific notes: there will probably not be any iobj relations,
+but in some cases the UD 1.0 semgrex expressions allowed .obj, so for
+possibly compatibility with UD 2.0 we allow (.)?obj
+
+also, compound should not ever occur, so there is no need to allow
+flat|compound instead of just allowing flat
