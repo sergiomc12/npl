@@ -36,7 +36,8 @@ import edu.stanford.nlp.swing.FontDetector;
 import edu.stanford.nlp.trees.PennTreebankLanguagePack;
 import edu.stanford.nlp.trees.Tree;
 import edu.stanford.nlp.trees.TreebankLanguagePack;
-import edu.stanford.nlp.trees.international.pennchinese.ChineseTreebankLanguagePack;
+// Chinese TreebankLanguagePack import disabled - Chinese support removed
+// import edu.stanford.nlp.trees.international.pennchinese.ChineseTreebankLanguagePack;
 import edu.stanford.nlp.ui.JarFileChooser;
 import edu.stanford.nlp.util.logging.Redwood;
 
@@ -290,14 +291,13 @@ public class ParserPanel extends JPanel  {
   }
 
   private void setFont() {
-    if (tlp instanceof ChineseTreebankLanguagePack) {
-      setChineseFont();
-    } else {
-      textPane.setFont(new Font("Sans Serif", Font.PLAIN, 14));
-      treePanel.setFont(new Font("Sans Serif", Font.PLAIN, 14));
-    }
+    // Chinese font detection disabled - Chinese support removed
+    textPane.setFont(new Font("Sans Serif", Font.PLAIN, 14));
+    treePanel.setFont(new Font("Sans Serif", Font.PLAIN, 14));
   }
 
+  // Chinese font method removed - Chinese support disabled
+  /*
   private void setChineseFont() {
     java.util.List<Font> fonts = FontDetector.supportedFonts(FontDetector.CHINESE);
     if (fonts.size() > 0) {
@@ -313,6 +313,7 @@ public class ParserPanel extends JPanel  {
       treePanel.setFont(new Font("Sans Serif", Font.PLAIN, 14));
     }
   }
+  */
 
 
   /**

@@ -27,7 +27,8 @@
 
 package edu.stanford.nlp.tagger.maxent;
 
-import edu.stanford.nlp.international.french.FrenchUnknownWordSignatures;
+// French unknown word signatures import disabled - French support removed
+// import edu.stanford.nlp.international.french.FrenchUnknownWordSignatures;
 import edu.stanford.nlp.international.spanish.SpanishUnknownWordSignatures;
 import edu.stanford.nlp.util.Generics;
 import edu.stanford.nlp.util.StringUtils;
@@ -170,37 +171,25 @@ public class ExtractorFramesRare {
 
   private static final Extractor[] eFrames_motley_caseless_naacl2003 = { cWordNumber, cWordDash, cLetterDigitDash, cCaselessCompany};
 
-  /**
-   * Whether it has a typical French noun suffix.
-   */
+  // French extractors disabled - French support removed
+  /*
   private static final ExtractorFrenchNounSuffix cWordFrenchNounSuffix =
     new ExtractorFrenchNounSuffix();
 
-  /**
-   * Whether it has a typical French adverb suffix.
-   */
   private static final ExtractorFrenchAdvSuffix cWordFrenchAdvSuffix =
     new ExtractorFrenchAdvSuffix();
 
-  /**
-   * Whether it has a typical French verb suffix.
-   */
   private static final ExtractorFrenchVerbSuffix cWordFrenchVerbSuffix =
     new ExtractorFrenchVerbSuffix();
 
-  /**
-   * Whether it has a typical French adjective suffix.
-   */
   private static final ExtractorFrenchAdjSuffix cWordFrenchAdjSuffix =
     new ExtractorFrenchAdjSuffix();
 
-  /**
-   * Whether it has a typical French plural suffix.
-   */
   private static final ExtractorFrenchPluralSuffix cWordFrenchPluralSuffix =
     new ExtractorFrenchPluralSuffix();
 
   private static final Extractor[] french_unknown_extractors = { cWordFrenchNounSuffix, cWordFrenchAdvSuffix, cWordFrenchVerbSuffix, cWordFrenchAdjSuffix, cWordFrenchPluralSuffix };
+  */
 
 
 
@@ -263,7 +252,8 @@ public class ExtractorFramesRare {
       } else if ("naacl2003conjunctions".equalsIgnoreCase(arg)) {
         extrs.addAll(Arrays.asList(naacl2003Conjunctions()));
       } else if ("frenchunknowns".equalsIgnoreCase(arg)) {
-        extrs.addAll(Arrays.asList(french_unknown_extractors));
+        // French extractors disabled - French support removed
+        // extrs.addAll(Arrays.asList(french_unknown_extractors));
       } else if ("spanishunknowns".equalsIgnoreCase(arg)) {
         extrs.add(new ExtractorSpanishGender());
         extrs.add(new ExtractorSpanishConditionalSuffix());
@@ -1613,7 +1603,8 @@ abstract class CWordBooleanExtractor extends RareExtractor {
 
 }
 
-
+// French extractor classes removed - French support disabled
+/*
 class ExtractorFrenchNounSuffix extends CWordBooleanExtractor {
 
   private static final long serialVersionUID = 848772358776880060L;
@@ -1667,6 +1658,7 @@ class ExtractorFrenchPluralSuffix extends CWordBooleanExtractor {
     return FrenchUnknownWordSignatures.hasPossiblePlural(cword);
   }
 }
+*/
 
 
 /**

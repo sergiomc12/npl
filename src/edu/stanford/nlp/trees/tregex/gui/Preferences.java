@@ -12,17 +12,18 @@ import edu.stanford.nlp.trees.SemanticHeadFinder;
 import edu.stanford.nlp.trees.StringLabeledScoredTreeReaderFactory;
 import edu.stanford.nlp.trees.TreeReaderFactory;
 import edu.stanford.nlp.trees.UniversalSemanticHeadFinder;
-import edu.stanford.nlp.trees.international.arabic.ArabicHeadFinder;
-import edu.stanford.nlp.trees.international.arabic.ArabicTreeReaderFactory;
-import edu.stanford.nlp.trees.international.french.DybroFrenchHeadFinder;
-import edu.stanford.nlp.trees.international.french.FrenchTreeReaderFactory;
+// Language-specific imports disabled - language support removed
+// import edu.stanford.nlp.trees.international.arabic.ArabicHeadFinder;
+// import edu.stanford.nlp.trees.international.arabic.ArabicTreeReaderFactory;
+// import edu.stanford.nlp.trees.international.french.DybroFrenchHeadFinder;
+// import edu.stanford.nlp.trees.international.french.FrenchTreeReaderFactory;
 import edu.stanford.nlp.trees.international.negra.NegraHeadFinder;
-import edu.stanford.nlp.trees.international.pennchinese.BikelChineseHeadFinder;
-import edu.stanford.nlp.trees.international.pennchinese.ChineseHeadFinder;
-import edu.stanford.nlp.trees.international.pennchinese.ChineseSemanticHeadFinder;
-import edu.stanford.nlp.trees.international.pennchinese.CTBTreeReaderFactory;
-import edu.stanford.nlp.trees.international.pennchinese.NoEmptiesCTBTreeReaderFactory;
-import edu.stanford.nlp.trees.international.pennchinese.SunJurafskyChineseHeadFinder;
+// import edu.stanford.nlp.trees.international.pennchinese.BikelChineseHeadFinder;
+// import edu.stanford.nlp.trees.international.pennchinese.ChineseHeadFinder;
+// import edu.stanford.nlp.trees.international.pennchinese.ChineseSemanticHeadFinder;
+// import edu.stanford.nlp.trees.international.pennchinese.CTBTreeReaderFactory;
+// import edu.stanford.nlp.trees.international.pennchinese.NoEmptiesCTBTreeReaderFactory;
+// import edu.stanford.nlp.trees.international.pennchinese.SunJurafskyChineseHeadFinder;
 import edu.stanford.nlp.trees.international.tuebadz.TueBaDZHeadFinder;
 import edu.stanford.nlp.trees.tregex.TregexPattern;
 
@@ -104,17 +105,17 @@ public class Preferences {
 
   static HeadFinder lookupHeadFinder(String headfinderName) {
     if(headfinderName.equalsIgnoreCase("ArabicHeadFinder")) {
-      return new ArabicHeadFinder();
+      return new SemanticHeadFinder(); // Arabic support removed - fallback to SemanticHeadFinder
     } else if(headfinderName.equalsIgnoreCase("BikelChineseHeadFinder")) {
-      return new BikelChineseHeadFinder();
+      return new SemanticHeadFinder(); // Chinese support removed - fallback to SemanticHeadFinder
     } else if(headfinderName.equalsIgnoreCase("ChineseHeadFinder")) {
-      return new ChineseHeadFinder();
+      return new SemanticHeadFinder(); // Chinese support removed - fallback to SemanticHeadFinder
     } else if(headfinderName.equalsIgnoreCase("ChineseSemanticHeadFinder")) {
-      return new ChineseSemanticHeadFinder();
+      return new SemanticHeadFinder(); // Chinese support removed - fallback to SemanticHeadFinder
     } else if(headfinderName.equalsIgnoreCase("CollinsHeadFinder")) {
       return new CollinsHeadFinder();
     } else if(headfinderName.equalsIgnoreCase("DybroFrenchHeadFinder")) {
-      return new DybroFrenchHeadFinder();
+      return new SemanticHeadFinder(); // French support removed - fallback to SemanticHeadFinder
     } else if(headfinderName.equalsIgnoreCase("LeftHeadFinder")) {
       return new LeftHeadFinder();
     }  else if(headfinderName.equalsIgnoreCase("ModCollinsHeadFinder")) {
@@ -124,7 +125,7 @@ public class Preferences {
     }  else if(headfinderName.equalsIgnoreCase("SemanticHeadFinder")) {
       return new SemanticHeadFinder();
     } else if(headfinderName.equalsIgnoreCase("SunJurafskyChineseHeadFinder")) {
-      return new SunJurafskyChineseHeadFinder();
+      return new SemanticHeadFinder(); // Chinese support removed - fallback to SemanticHeadFinder
     } else if(headfinderName.equalsIgnoreCase("TueBaDZHeadFinder")) {
       return new TueBaDZHeadFinder();
     } else if (headfinderName.equalsIgnoreCase("UniversalSemanticHeadFinder")) {
@@ -150,17 +151,17 @@ public class Preferences {
 
   static TreeReaderFactory lookupTreeReaderFactory(String trfName) {
     if(trfName.equalsIgnoreCase("ArabicTreeReaderFactory")) {
-      return new ArabicTreeReaderFactory();
+      return new PennTreeReaderFactory(); // Arabic support removed - fallback to PennTreeReaderFactory
     } else if(trfName.equalsIgnoreCase("ArabicTreeReaderFactory.ArabicRawTreeReaderFactory")) {
-      return new ArabicTreeReaderFactory.ArabicRawTreeReaderFactory();
+      return new PennTreeReaderFactory(); // Arabic support removed - fallback to PennTreeReaderFactory
     } else if(trfName.equalsIgnoreCase("CTBTreeReaderFactory")) {
-      return new CTBTreeReaderFactory();
+      return new PennTreeReaderFactory(); // Chinese support removed - fallback to PennTreeReaderFactory
     } else if(trfName.equalsIgnoreCase("NoEmptiesCTBTreeReaderFactory")) {
-      return new NoEmptiesCTBTreeReaderFactory();
+      return new PennTreeReaderFactory(); // Chinese support removed - fallback to PennTreeReaderFactory
     } else if(trfName.equalsIgnoreCase("Basic categories only (LabeledScoredTreeReaderFactory)")) {
       return new LabeledScoredTreeReaderFactory();
     } else if(trfName.equalsIgnoreCase("FrenchTreeReaderFactory")) {
-      return new FrenchTreeReaderFactory();//PTB format
+      return new PennTreeReaderFactory(); // French support removed - fallback to PennTreeReaderFactory
     } else if(trfName.equalsIgnoreCase("PennTreeReaderFactory")) {
       return new PennTreeReaderFactory();
     } else if(trfName.equalsIgnoreCase("StringLabeledScoredTreeReaderFactory")) {

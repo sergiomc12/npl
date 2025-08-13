@@ -4,7 +4,8 @@ import edu.stanford.nlp.util.logging.Redwood;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import edu.stanford.nlp.trees.international.pennchinese.ChineseUtils;
+// Chinese utilities import disabled - Chinese support removed
+// import edu.stanford.nlp.trees.international.pennchinese.ChineseUtils;
 
 import edu.stanford.nlp.objectbank.ObjectBank;
 import edu.stanford.nlp.util.Generics;
@@ -187,7 +188,7 @@ public class WordShapeClassifier  {
       case WORDSHAPEDIGITS:
         return wordShapeDigits(inStr);
       case WORDSHAPECHINESE:
-        return wordShapeChinese(inStr);
+        return ""; // Chinese word shape disabled - Chinese support removed
       case WORDSHAPECLUSTER1:
         return wordShapeCluster1(inStr);
       default:
@@ -891,9 +892,12 @@ public class WordShapeClassifier  {
     }
   }
 
+  // Chinese word shape method removed - Chinese support disabled
+  /*
   private static String wordShapeChinese(final String s) {
     return ChineseUtils.shapeOf(s, true, true);
   }
+  */
 
 
   private static class DistributionalClusters {

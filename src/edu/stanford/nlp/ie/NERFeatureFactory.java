@@ -50,7 +50,7 @@ import edu.stanford.nlp.sequences.Clique;
 import edu.stanford.nlp.sequences.CoNLLDocumentReaderAndWriter;
 import edu.stanford.nlp.sequences.FeatureFactory;
 import edu.stanford.nlp.sequences.SeqClassifierFlags;
-import edu.stanford.nlp.trees.international.pennchinese.RadicalMap;
+
 import edu.stanford.nlp.util.Generics;
 import edu.stanford.nlp.util.Interner;
 import edu.stanford.nlp.util.PaddedList;
@@ -1730,6 +1730,8 @@ public class NERFeatureFactory<IN extends CoreLabel> extends FeatureFactory<IN> 
     if(flags.useCommonWordsFeature)
       out.add(c.get(CoreAnnotations.CommonWordsAnnotation.class));
 
+    // Chinese radical features disabled (RadicalMap removed)
+    /*
     if (flags.useRadical && cWord.length() > 0) {
       // todo [cdm 2016]: Really all stuff in this file should be fixed to work with codepoints outside BMP
       if (cWord.length() == 1) {
@@ -1742,6 +1744,7 @@ public class NERFeatureFactory<IN extends CoreLabel> extends FeatureFactory<IN> 
         out.build().append(RadicalMap.getRadical(cWord.charAt(i))).append("-RADICAL").add();
       }
     }
+    */
 
     if (flags.splitWordRegex != null && !flags.splitWordRegex.isEmpty()){
       for(String s: c.word().split(flags.splitWordRegex)) {

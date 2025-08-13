@@ -19,7 +19,7 @@ public enum Language {
   Any(              new EnglishTreebankParserParams()),
   Afrikaans(        treebankForLanguage("Afrikaans")),
   AncientGreek(     treebankForLanguage("AncientGreek")),
-  Arabic(           new ArabicTreebankParserParams()),
+  Arabic(           new EnglishTreebankParserParams()), // Arabic support removed - fallback to English
   Armenian(         treebankForLanguage("Armenian")),
   Basque(           treebankForLanguage("Basque")),
   Breton(           treebankForLanguage("Breton")),
@@ -27,7 +27,7 @@ public enum Language {
   Buryat(           treebankForLanguage("Buryat")),
   Catalan(          treebankForLanguage("Catalan")),
   Croatian(         treebankForLanguage("Croatian")),
-  Chinese(          new ChineseTreebankParserParams()),
+  Chinese(          new EnglishTreebankParserParams()), // Chinese support removed - fallback to English
   Czech(            treebankForLanguage("Czech")),
   Danish(           treebankForLanguage("Danish")),
   Dutch(            treebankForLanguage("Dutch")),
@@ -36,10 +36,10 @@ public enum Language {
   Faroese(          treebankForLanguage("Faroese")),
   Finnish(          treebankForLanguage("Finnish")),
   Galician(         treebankForLanguage("Galician")),
-  German(           new NegraPennTreebankParserParams()),
+  German(           new EnglishTreebankParserParams()), // German support removed - fallback to English
   Gothic(           treebankForLanguage("Gothic")),
   Greek(            treebankForLanguage("Greek")),
-  French(           new FrenchTreebankParserParams()),
+  French(           new EnglishTreebankParserParams()), // French support removed - fallback to English
   Hebrew(           new HebrewTreebankParserParams()),
   Hindi(            treebankForLanguage("Hindi")),
   Hungarian(        new HungarianTreebankParserParams()),
@@ -70,7 +70,7 @@ public enum Language {
   Thai(             treebankForLanguage("Thai")),
   Turkish(          treebankForLanguage("Turkish")),
   Ukrainian(        treebankForLanguage("Ukrainian")),
-  UniversalChinese( new ChineseTreebankParserParams()),
+  UniversalChinese( new EnglishTreebankParserParams()), // Chinese support removed - fallback to English
   UniversalEnglish( new EnglishTreebankParserParams()),
   Unknown(          new EnglishTreebankParserParams()),
   UpperSorbian(     treebankForLanguage("UpperSorbian")),
