@@ -27,7 +27,7 @@
 package edu.stanford.nlp.trees;
 
 import edu.stanford.nlp.international.Language;
-import edu.stanford.nlp.trees.international.pennchinese.ChineseGrammaticalRelations;
+
 import edu.stanford.nlp.trees.tregex.TregexMatcher;
 import edu.stanford.nlp.trees.tregex.TregexPattern;
 import edu.stanford.nlp.trees.tregex.TregexPatternCompiler;
@@ -152,7 +152,7 @@ public class GrammaticalRelation implements Comparable<GrammaticalRelation>, Ser
 
 
   /**
-   * Dummy relation, used while collapsing relations, e.g., in English &amp; Chinese GrammaticalStructure
+   * Dummy relation, used while collapsing relations, e.g., in English GrammaticalStructure
    */
   public static final GrammaticalRelation KILL =
     new GrammaticalRelation(Language.Any, "KILL", "dummy relation kill", null);
@@ -435,7 +435,7 @@ public class GrammaticalRelation implements Comparable<GrammaticalRelation>, Ser
     if (specific == null) {
       return shortName;
     } else {
-      char sep = (language == Language.English || language == Language.Chinese )? '_' : ':';
+      char sep = (language == Language.English )? '_' : ':';
       return shortName + sep + specific;
     }
   }
@@ -542,7 +542,7 @@ public class GrammaticalRelation implements Comparable<GrammaticalRelation>, Ser
    * TODO: there are a bunch of things wrong with this.  For one
    * thing, it's crazy slow, since it goes through all the existing
    * relations in an array.  For another, it would be cleaner to have
-   * subclasses for the English and Chinese relations
+   * subclasses for the English relations
    */
   protected Object readResolve() throws ObjectStreamException {
     switch (language) {
@@ -579,17 +579,6 @@ public class GrammaticalRelation implements Comparable<GrammaticalRelation>, Ser
       } else {
         return rel;
       }
-    }
-    case Chinese: {
-      GrammaticalRelation rel = ChineseGrammaticalRelations.valueOf(toString());
-      if (rel == null) {
-        // TODO: we need to figure out what to do with relations
-        // which were serialized and then deprecated.  Perhaps there
-        // is a good way to make them singletons
-        return this;
-        //throw new RuntimeException("Unknown Chinese relation " + this);
-      }
-      return rel;
     }
     case UniversalEnglish:
       GrammaticalRelation rel = UniversalEnglishGrammaticalRelations.valueOf(toString());

@@ -14,7 +14,8 @@ import edu.stanford.nlp.ling.CoreLabel;
 import edu.stanford.nlp.trees.Tree;
 import edu.stanford.nlp.trees.TreeReader;
 import edu.stanford.nlp.trees.TreeReaderFactory;
-import edu.stanford.nlp.trees.international.arabic.ArabicTreeReaderFactory;
+// Arabic TreeReaderFactory import disabled - Arabic support removed
+// import edu.stanford.nlp.trees.international.arabic.ArabicTreeReaderFactory;
 import edu.stanford.nlp.util.Generics;
 import edu.stanford.nlp.util.PropertiesUtils;
 import edu.stanford.nlp.util.StringUtils;
@@ -64,8 +65,10 @@ public final class AddMorphoAnnotations  {
     public YieldIterator(String fileName, boolean isTree) {
       try {
         if (isTree) {
-          TreeReaderFactory trf = new ArabicTreeReaderFactory.ArabicRawTreeReaderFactory(true);
-          treeReader = trf.newTreeReader(new InputStreamReader(new FileInputStream(fileName), "UTF-8"));
+          // Arabic tree reader disabled - Arabic support removed
+          throw new UnsupportedOperationException("Arabic tree reading not supported - Arabic support removed");
+          // TreeReaderFactory trf = new ArabicTreeReaderFactory.ArabicRawTreeReaderFactory(true);
+          // treeReader = trf.newTreeReader(new InputStreamReader(new FileInputStream(fileName), "UTF-8"));
         } else {
           fileReader = new BufferedReader(new InputStreamReader(new FileInputStream(fileName), "UTF-8"));
         }
@@ -162,50 +165,8 @@ public final class AddMorphoAnnotations  {
         
     try {
       BufferedReader brIn = new BufferedReader(new InputStreamReader(System.in, encoding));
-      TreeReaderFactory trf = new ArabicTreeReaderFactory.ArabicRawTreeReaderFactory(true);
-
-      int nTrees = 0;
-      for(String line; (line = brIn.readLine()) != null; ++nTrees) {
-        Tree tree = trf.newTreeReader(new StringReader(line)).readTree();
-        List<Tree> leaves = tree.getLeaves();
-        if(!morphIter.hasNext()) {
-          throw new RuntimeException("Mismatch between number of morpho analyses and number of input lines.");
-        }
-        List<String> morphTags = morphIter.next();
-        if (!lemmaIter.hasNext()) {
-          throw new RuntimeException("Mismatch between number of lemmas and number of input lines.");
-        }
-        List<String> lemmas = lemmaIter.next();
-         
-        // Sanity checks
-        assert morphTags.size() == lemmas.size();
-        assert lemmas.size() == leaves.size();
-        
-        for(int i = 0; i < leaves.size(); ++i) {
-          String morphTag = morphTags.get(i);
-          if (pParenStripper.matcher(morphTag).find()) {
-            morphTag = pParenStripper.matcher(morphTag).replaceAll("");
-          }
-          String newLeaf = String.format("%s%s%s%s%s", leaves.get(i).value(),
-              MorphoFeatureSpecification.MORPHO_MARK,
-              lemmas.get(i),
-              MorphoFeatureSpecification.LEMMA_MARK,
-              morphTag);
-          leaves.get(i).setValue(newLeaf);
-        }
-        System.out.println(tree.toString());
-      }
-      
-      // Sanity checks
-      assert !morphIter.hasNext();
-      assert !lemmaIter.hasNext();
-      
-      System.err.printf("Processed %d trees%n",nTrees);
-      
-    } catch (UnsupportedEncodingException e) {
-      e.printStackTrace();
-    } catch (FileNotFoundException e) {
-      e.printStackTrace();
+      TreeReaderFactory trf = null; // Arabic support removed
+      throw new UnsupportedOperationException("Arabic tree processing not supported - Arabic support removed");
     } catch (IOException e) {
       e.printStackTrace();
     }

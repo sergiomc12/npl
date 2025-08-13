@@ -2,7 +2,7 @@ package edu.stanford.nlp.trees;
 
 import edu.stanford.nlp.ling.*;
 import edu.stanford.nlp.process.PTBTokenizer;
-import edu.stanford.nlp.trees.international.pennchinese.ChineseEnglishWordMap;
+
 import edu.stanford.nlp.util.*;
 import edu.stanford.nlp.util.XMLUtils;
 import edu.stanford.nlp.util.logging.Redwood;
@@ -58,7 +58,7 @@ public class TreePrint  {
   private final boolean lexicalize; // = false;
   private final boolean removeEmpty;
   private final boolean ptb2text;
-  private final boolean transChinese; // = false;
+  private final boolean transChinese = false; // Chinese translation disabled
   private final boolean basicDependencies;
   private final boolean collapsedDependencies;
   private final boolean nonCollapsedDependencies;
@@ -186,7 +186,7 @@ public class TreePrint  {
 
     lexicalize = propertyToBoolean(this.options, "lexicalize");
     markHeadNodes = propertyToBoolean(this.options, "markHeadNodes");
-    transChinese = propertyToBoolean(this.options, "transChinese");
+    // transChinese = propertyToBoolean(this.options, "transChinese"); // Chinese translation disabled
     ptb2text = propertyToBoolean(this.options, "ptb2text");
     removeEmpty = propertyToBoolean(this.options, "noempty") || ptb2text;
 
@@ -418,22 +418,7 @@ public class TreePrint  {
       outputPSTree = markHeadNodes(outputPSTree);
     }
 
-    if (transChinese) {
-      TreeTransformer tt = t1 -> {
-        t1 = t1.treeSkeletonCopy();
-        for (Tree subtree : t1) {
-          if (subtree.isLeaf()) {
-            Label oldLabel = subtree.label();
-            String translation = ChineseEnglishWordMap.getInstance().getFirstTranslation(oldLabel.value());
-            if (translation == null) translation = "[UNK]";
-            Label newLabel = new StringLabel(oldLabel.value() + ':' + translation);
-            subtree.setLabel(newLabel);
-          }
-        }
-        return t1;
-      };
-      outputPSTree = tt.transformTree(outputPSTree);
-    }
+    // Chinese translation functionality removed
 
     if (propertyToBoolean(options, "xml")) {
       if (formats.containsKey("wordsAndTags")) {

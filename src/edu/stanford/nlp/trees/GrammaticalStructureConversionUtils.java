@@ -7,7 +7,8 @@ import edu.stanford.nlp.parser.lexparser.TreebankLangParserParams;
 import edu.stanford.nlp.process.PTBTokenizer;
 import edu.stanford.nlp.process.WhitespaceTokenizer;
 import edu.stanford.nlp.semgraph.SemanticGraphFactory;
-import edu.stanford.nlp.trees.international.pennchinese.CTBErrorCorrectingTreeNormalizer;
+// Chinese tree normalizer import disabled - Chinese support removed
+// import edu.stanford.nlp.trees.international.pennchinese.CTBErrorCorrectingTreeNormalizer;
 import edu.stanford.nlp.util.CoreMap;
 import edu.stanford.nlp.util.Filters;
 import edu.stanford.nlp.util.Generics;
@@ -451,12 +452,15 @@ public class GrammaticalStructureConversionUtils {
   public enum ConverterOptions {
     UniversalEnglish("en", new NPTmpRetainingTreeNormalizer(0, false, 1, false),
         "edu.stanford.nlp.parser.lexparser.EnglishTreebankParserParams", false, true),
+    English("en-sd", new NPTmpRetainingTreeNormalizer(0, false, 1, false),
+        "edu.stanford.nlp.parser.lexparser.EnglishTreebankParserParams", true, true);
+    // Chinese converter options removed - Chinese support disabled
+    /*
     UniversalChinese("zh", new CTBErrorCorrectingTreeNormalizer(false, false, false, false),
         "edu.stanford.nlp.parser.lexparser.ChineseTreebankParserParams", false, false),
-    English("en-sd", new NPTmpRetainingTreeNormalizer(0, false, 1, false),
-        "edu.stanford.nlp.parser.lexparser.EnglishTreebankParserParams", true, true),
     Chinese("zh-sd", new CTBErrorCorrectingTreeNormalizer(false, false, false, false),
         "edu.stanford.nlp.parser.lexparser.ChineseTreebankParserParams", true, false);
+    */
 
     public final String abbreviation;
     public final TreeNormalizer treeNormalizer;
@@ -638,7 +642,7 @@ public class GrammaticalStructureConversionUtils {
         System.err.println("    -conllx:\t\tOutput dependencies in CoNLL format.");
         System.err.println("");
         System.err.println("  Language:");
-        System.err.println("    -language [en|zh|en-sd|zh-sd]:\t (Universal English Dependencies, Universal Chinese Dependencies, English Stanford Dependencies, Chinese Stanford Dependencies)");
+        System.err.println("    -language [en|en-sd]:\t (Universal English Dependencies, English Stanford Dependencies - Chinese support removed)");
         System.err.println("");
         System.err.println("");
         System.err.println("");

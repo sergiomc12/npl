@@ -9,7 +9,7 @@ import edu.stanford.nlp.ling.CoreAnnotations;
 import edu.stanford.nlp.ling.CoreLabel;
 import edu.stanford.nlp.process.*;
 import edu.stanford.nlp.international.spanish.process.SpanishTokenizer;
-import edu.stanford.nlp.international.french.process.FrenchTokenizer;
+
 import edu.stanford.nlp.util.Generics;
 import edu.stanford.nlp.util.PropertiesUtils;
 import edu.stanford.nlp.util.ReflectionLoading;
@@ -39,12 +39,8 @@ public class TokenizerAnnotator implements Annotator  {
    */
   public enum TokenizerType {
     Unspecified(null, null, "invertible,ptb3Escaping=true"),
-    Arabic     ("ar", null, ""),
-    Chinese    ("zh", null, ""),
     Spanish    ("es", "SpanishTokenizer", SpanishTokenizer.DEFAULT_OPTIONS),
     English    ("en", "PTBTokenizer", "invertible"),
-    German     ("de", null, "invertible,ptb3Escaping=false,splitHyphenated=true"),
-    French     ("fr", "FrenchTokenizer", FrenchTokenizer.DEFAULT_OPTIONS),
     Whitespace (null, "WhitespaceTokenizer", "");
 
     private final String abbreviation;
@@ -211,15 +207,10 @@ public class TokenizerAnnotator implements Annotator  {
         LanguageInfo.isSegmenterLanguage(props.getProperty("tokenize.language")) &&
         !whitespace) {
       cdcAnnotator = null;
-      if (LanguageInfo.getLanguageFromString(props.getProperty("tokenize.language")) == LanguageInfo.HumanLanguage.ARABIC) {
-        segmenterAnnotator = new ArabicSegmenterAnnotator("segment", props);
-      } else if (LanguageInfo.getLanguageFromString(props.getProperty("tokenize.language")) == LanguageInfo.HumanLanguage.CHINESE) {
-        segmenterAnnotator = new ChineseSegmenterAnnotator("segment", props);
-      } else {
-        segmenterAnnotator = null;
-        throw new RuntimeException("No segmenter implemented for: "+
-                                   LanguageInfo.getLanguageFromString(props.getProperty("tokenize.language")));
-      }
+      // Arabic and Chinese segmenter annotators removed - language support disabled
+      segmenterAnnotator = null;
+      throw new RuntimeException("Segmenter not supported for language: "+
+                                 props.getProperty("tokenize.language") + " (language support removed)");
     } else if (props.getProperty(STANFORD_CDC_TOKENIZE + ".model", null) != null) {
       cdcAnnotator = new StatTokSentAnnotator(props);
       segmenterAnnotator = null;
@@ -295,17 +286,8 @@ public class TokenizerAnnotator implements Annotator  {
 
     switch(type) {
 
-    case Arabic:
-    case Chinese:
-      factory = null;
-      break;
-
     case Spanish:
       factory = SpanishTokenizer.factory(new CoreLabelTokenFactory(), options);
-      break;
-
-    case French:
-      factory = FrenchTokenizer.factory(new CoreLabelTokenFactory(), options);
       break;
 
     case Whitespace:
@@ -315,7 +297,6 @@ public class TokenizerAnnotator implements Annotator  {
       break;
 
     case English:
-    case German:
       factory = PTBTokenizer.factory(new CoreLabelTokenFactory(), options);
       break;
 

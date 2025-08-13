@@ -23,8 +23,7 @@ import edu.stanford.nlp.trees.TreeGraphNode;
 import edu.stanford.nlp.trees.TypedDependency;
 import edu.stanford.nlp.trees.UniversalEnglishGrammaticalRelations;
 import edu.stanford.nlp.trees.UniversalEnglishGrammaticalStructure;
-import edu.stanford.nlp.trees.international.pennchinese.ChineseGrammaticalRelations;
-import edu.stanford.nlp.trees.international.pennchinese.ChineseGrammaticalStructure;
+
 import edu.stanford.nlp.util.*;
 import edu.stanford.nlp.util.logging.Redwood;
 
@@ -1024,11 +1023,6 @@ public class DependencyParser  {
         if (stored != null)
           return stored;
         break;
-      case Chinese:
-        stored = ChineseGrammaticalRelations.shortNameToGRel.get(label);
-        if (stored != null)
-          return stored;
-        break;
     }
 
     return new GrammaticalRelation(language, label, null, GrammaticalRelation.DEPENDENT);
@@ -1038,9 +1032,8 @@ public class DependencyParser  {
     switch (language) {
       case English: return new EnglishGrammaticalStructure(dependencies, rootNode);
       case UniversalEnglish: return new UniversalEnglishGrammaticalStructure(dependencies, rootNode);
-      case Chinese: return new ChineseGrammaticalStructure(dependencies, rootNode);
 
-      // TODO suboptimal: default to UniversalEnglishGrammaticalStructure return
+      // Default to UniversalEnglishGrammaticalStructure for unsupported languages
       default: return new UniversalEnglishGrammaticalStructure(dependencies, rootNode);
     }
   }

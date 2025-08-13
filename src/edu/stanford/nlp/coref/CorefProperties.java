@@ -14,7 +14,6 @@ import edu.stanford.nlp.ling.CoreLabel;
 import edu.stanford.nlp.pipeline.Annotation;
 import edu.stanford.nlp.trees.HeadFinder;
 import edu.stanford.nlp.trees.SemanticHeadFinder;
-import edu.stanford.nlp.trees.international.pennchinese.ChineseSemanticHeadFinder;
 import edu.stanford.nlp.util.CollectionUtils;
 import edu.stanford.nlp.util.CoreMap;
 import edu.stanford.nlp.util.Pair;
@@ -193,9 +192,9 @@ public class CorefProperties {
   public static HeadFinder getHeadFinder(Properties props) {
     Locale lang = getLanguage(props);
     if (lang == Locale.ENGLISH) return new SemanticHeadFinder();
-    else if (lang == Locale.CHINESE) return new ChineseSemanticHeadFinder();
     else {
-      throw new RuntimeException("Invalid language setting: cannot load HeadFinder");
+      // Default to English semantic head finder for unsupported languages
+      return new SemanticHeadFinder();
     }
   }
 

@@ -4,7 +4,6 @@ import java.io.*;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import edu.stanford.nlp.ie.regexp.ChineseNumberSequenceClassifier;
 import edu.stanford.nlp.ie.regexp.NumberSequenceClassifier;
 import edu.stanford.nlp.io.IOUtils;
 import edu.stanford.nlp.io.RuntimeIOException;
@@ -104,11 +103,7 @@ public class NERClassifierCombiner extends ClassifierCombiner<CoreLabel>  {
     this.nerLanguage = nerLanguage;
     this.useSUTime = useSUTime;
     // check for which language to use for number sequence classifier
-    if (nerLanguage == Language.CHINESE) {
-      this.nsc = new ChineseNumberSequenceClassifier(new Properties(), useSUTime, nscProps);
-    } else {
-      this.nsc = new NumberSequenceClassifier(new Properties(), useSUTime, nscProps);
-    }
+    this.nsc = new NumberSequenceClassifier(new Properties(), useSUTime, nscProps);
   }
 
   @SafeVarargs
@@ -284,14 +279,8 @@ public class NERClassifierCombiner extends ClassifierCombiner<CoreLabel>  {
       try {
         // normalizes numeric entities such as MONEY, TIME, DATE, or PERCENT
         // note: this uses and sets NamedEntityTagAnnotation!
-        if(nerLanguage == Language.CHINESE) {
-          // For chinese there is no support for SUTime by default
-          // We need to hand in document and sentence for Chinese to handle DocDate; however, since English normalization
-          // is handled by SUTime, and the information is passed in recognizeNumberSequences(), English only need output.
-          ChineseQuantifiableEntityNormalizer.addNormalizedQuantitiesToEntities(output, document, sentence);
-        } else {
-          QuantifiableEntityNormalizer.addNormalizedQuantitiesToEntities(output, false, useSUTime);
-        }
+        // Chinese normalization removed - using default English normalization
+        QuantifiableEntityNormalizer.addNormalizedQuantitiesToEntities(output, false, useSUTime);
       } catch (Exception e) {
         log.info("Ignored an exception in QuantifiableEntityNormalizer: (result is that entities were not normalized)");
         log.info("Tokens: " + StringUtils.joinWords(tokens, " "));

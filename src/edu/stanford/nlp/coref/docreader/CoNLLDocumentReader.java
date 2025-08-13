@@ -45,8 +45,7 @@ import edu.stanford.nlp.trees.TreeCoreAnnotations;
 import edu.stanford.nlp.trees.TreeCoreAnnotations.TreeAnnotation;
 import edu.stanford.nlp.trees.TreeNormalizer;
 import edu.stanford.nlp.trees.Trees;
-import edu.stanford.nlp.trees.international.pennchinese.ChineseGrammaticalStructure;
-import edu.stanford.nlp.trees.international.pennchinese.ChineseSemanticHeadFinder;
+
 import edu.stanford.nlp.util.AbstractIterator;
 import edu.stanford.nlp.util.CollectionFactory;
 import edu.stanford.nlp.util.CollectionValuedMap;
@@ -114,7 +113,7 @@ public class CoNLLDocumentReader implements DocReader  {
   private int curFileIndex;
   private final Options options;
 
-  private static final HeadFinder chineseHeadFinder = new ChineseSemanticHeadFinder();
+
 
   public CoNLLDocumentReader(String filepath)
   {
@@ -1089,24 +1088,9 @@ public class CoNLLDocumentReader implements DocReader  {
       SemanticGraph deps = null;
       SemanticGraph basicDeps = null;
 
-      if (options.lang == Locale.CHINESE) {
-        final boolean threadSafe = true;
-
-        deps = SemanticGraphFactory.makeFromTree(
-            new ChineseGrammaticalStructure(tree, Filters.acceptFilter(), chineseHeadFinder),
-            SemanticGraphFactory.Mode.COLLAPSED,
-            GrammaticalStructure.Extras.NONE,
-                null);
-
-        basicDeps = SemanticGraphFactory.makeFromTree(
-            new ChineseGrammaticalStructure(tree, Filters.acceptFilter(), chineseHeadFinder),
-            SemanticGraphFactory.Mode.BASIC,
-            GrammaticalStructure.Extras.NONE,
-                null);
-      } else {
-        deps = SemanticGraphFactory.generateEnhancedDependencies(tree);
-        basicDeps = SemanticGraphFactory.generateUncollapsedDependencies(tree);
-      }
+      // Use standard English dependency processing for all languages
+      deps = SemanticGraphFactory.generateEnhancedDependencies(tree);
+      basicDeps = SemanticGraphFactory.generateUncollapsedDependencies(tree);
 
       sentence.set(SemanticGraphCoreAnnotations.BasicDependenciesAnnotation.class, basicDeps);
       sentence.set(SemanticGraphCoreAnnotations.EnhancedDependenciesAnnotation.class, deps);
